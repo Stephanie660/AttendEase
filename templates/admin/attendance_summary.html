@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="content-main">
+    <h1>Attendance Summary for {{ today }}</h1>
+    
+    <div class="module">
+        <h2>Overall Statistics</h2>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Total Employees</th>
+                    <td>{{ total_employees }}</td>
+                </tr>
+                <tr>
+                    <th>Present Today</th>
+                    <td>{{ present_today }}</td>
+                </tr>
+                <tr>
+                    <th>Absent Today</th>
+                    <td>{{ absent_today }}</td>
+                </tr>
+                <tr>
+                    <th>Late Today</th>
+                    <td>{{ late_today }}</td>
+                </tr>
+                <tr>
+                    <th>Attendance Rate</th>
+                    <td>{{ present_percent }}%</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="module">
+        <h2>Department-wise Statistics</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Department</th>
+                    <th>Total</th>
+                    <th>Present</th>
+                    <th>Absent</th>
+                    <th>Late</th>
+                    <th>Attendance %</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dept in department_stats %}
+                <tr>
+                    <td>{{ dept.name }}</td>
+                    <td>{{ dept.total }}</td>
+                    <td>{{ dept.present }}</td>
+                    <td>{{ dept.absent }}</td>
+                    <td>{{ dept.late }}</td>
+                    <td>{{ dept.present_percent }}%</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <a href="/admin/attendance/attendance/report/" class="button">Generate Detailed Report</a>
+    </div>
+</div>
+{% endblock %}

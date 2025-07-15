@@ -1,0 +1,11 @@
+{% extends "admin/change_list.html" %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    <li>
+        <a href="summary/" class="btn btn-high btn-info">View Summary</a>
+    </li>
+    <li>
+        <a href="report/" class="btn btn-high btn-success">Generate Report</a>
+    </li>
+{% endblock %}

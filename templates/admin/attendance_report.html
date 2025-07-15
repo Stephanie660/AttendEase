@@ -1,0 +1,49 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block content %}
+<div id="content-main">
+    <h1>Generate Attendance Report</h1>
+    <p>Select date range and other options to generate attendance report</p>
+    
+    <div class="module">
+        <form method="post">
+            {% csrf_token %}
+            <div style="padding: 10px;">
+                <div style="margin-bottom: 15px;">
+                    <label for="id_start_date">{{ form.start_date.label }}:</label><br>
+                    {{ form.start_date }}
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="id_end_date">{{ form.end_date.label }}:</label><br>
+                    {{ form.end_date }}
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label for="id_department">{{ form.department.label }}:</label><br>
+                    <select name="department" id="id_department">
+                        <option value="">All Departments</option>
+                        {% for department in departments %}
+                            <option value="{{ department }}">{{ department }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                
+                <div style="margin-bottom: 15px;">
+                    <label>{{ form.report_type.label }}:</label><br>
+                    {% for value, text in form.report_type.field.choices %}
+                        <input type="radio" name="report_type" id="id_report_type_{{ value }}" value="{{ value }}"
+                            {% if form.report_type.value == value %}checked{% endif %}>
+                        <label for="id_report_type_{{ value }}">{{ text }}</label><br>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="submit-row">
+                <input type="submit" value="Generate Report" class="default">
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
